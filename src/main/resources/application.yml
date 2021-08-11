@@ -1,0 +1,94 @@
+server:
+  port: 8999
+  ssl:
+    key-store-type: JKS
+    key-store: classpath:/certs/keycloak.jks
+    key-store-password: myjkspass
+    key-alias: identity_provider_alias
+  servlet:
+    context-path: /api  
+  session:
+    timeout: 900
+  compression:
+    enabled: true
+    excluded-user-agents: 
+    mime-types: text/html,text/xml,text/plain,text/css,text/javascript,application/javascript,application/json
+    min-response-size: 1MB
+  
+security:
+  oauth2:
+    client:
+      scope: openid
+      accessTokenUri: https://youridp.com/auth/realms/API/protocol/openid-connect/token
+    resource:
+      userInfoUri: https://youridp.com/auth/realms/API/protocol/openid-connect/userinfo
+  application:
+    name: corp_api
+  require-ssl: true 
+
+graphql:
+  servlet:
+    mapping: /graphql
+    enabled: true
+  tools:
+    schema-location-pattern: "**/*.graphqls"
+    corsEnabled: true
+
+endpoints:
+  health:
+    sensitive: false
+  restart:
+    enabled: true
+  shutdown:
+    enabled: true
+
+
+logging:
+  level:
+    org.springframework.web: ERROR
+    luis: DEBUG
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+
+spring:
+  jpa:
+    database: default
+  datasource:
+    driver-class-name: oracle.jdbc.OracleDriver
+    jdbc-url: jdbc:oracle:thin:@//host:1521/service
+    username: '<user01>'
+    password: '<senha1>'
+    platform: oracle
+    hikari:
+      idle-timeout: 10000
+      maximum-pool-size: 10
+      minimum-idle: 5
+      pool-name: PrimaryHikariPool
+  secondary:
+    driver-class-name: oracle.jdbc.OracleDriver
+    jdbc-url: jdbc:oracle:thin:@//host:1521/service
+    username: '<user02>'
+    password: '<senha2>'
+    platform: oracle
+    hikari:
+      idle-timeout: 10000
+      maximum-pool-size: 10
+      minimum-idle: 5
+      pool-name: SecondaryHikariPool
+
+infinispan:
+  remote:
+    server-list: infini001:11222
+    auth-user-name: <infinispanuser>
+    auth-password: <infinispanpass>
+    sasl-mechanism: PLAIN
+#DIGEST-MD5
+    java-serial-whitelist: luis.api.dados.*
+    marshaller: org.infinispan.commons.marshall.JavaSerializationMarshaller
+
+autorizacao:
+  clientesNP1:
+    - keycloak.client.service1
+    - keycloak.client.service2
+  clientesNP2:
+    - keycloak.client.service3

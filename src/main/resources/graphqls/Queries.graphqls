@@ -1,0 +1,5 @@
+type Query {
+    findFuncionarioByMatricula(matricula: String): Funcionario
+    allFuncionarios: [Funcionario]
+}
+

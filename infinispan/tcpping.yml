@@ -1,0 +1,20 @@
+infinispan:
+  clusterName: infinispan
+endpoints:
+  hotrod:
+    auth: true
+    enabled: true
+    qop: auth
+    serverName: host.name
+  memcached:
+    enabled: false
+  rest:
+    auth: true
+    enabled: true
+jgroups:
+  diagnostics: false
+  encrypt: false
+  transport: tcp
+  tcpPing:
+    initialHosts: ${jgroups.tcpping.initial_hosts:infini001[7800]}
+    # infini001 is referenced as the Docker container instance name

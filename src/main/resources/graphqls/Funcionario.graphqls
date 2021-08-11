@@ -1,0 +1,19 @@
+"""
+Funcionario - Entidade que representa o funcionario
+"""
+
+type Funcionario {
+    """ id - chave primaria dos registros de forca de trabalho """
+    id: Int!
+
+    """ matricula - matricula do funcionario """
+    matricula: String
+
+    """ cpf - cpf do funcionario """
+    cpf: String
+
+    """ nomeCompleto - nome completo do funcionario """
+    nomeCompleto: String
+
+
+}
